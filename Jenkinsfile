@@ -1,7 +1,7 @@
 pipeline 
 {
     agent any
-    when {
+    when{
           not {
               changeset 'docs/**'
           }
