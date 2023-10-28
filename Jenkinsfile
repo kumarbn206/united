@@ -3,7 +3,7 @@ pipeline
     agent any
 
     stages{
-       stage(changes in the folder){
+       stage("changes in the folder"){
         steps{
             sh """
              echo "kumar"
