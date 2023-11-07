@@ -17,16 +17,20 @@ pipeline {
             }
         }
 
-        stage('docs checkout') {
+  stage("Check for Changes") {
             steps {
                 script {
                     // Define the excluded directory "docs"
                     def excludedPath = 'docs'
+                    
+                    // Check if any changes occurred in the excluded directory
+                    def changesInDocs = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^${excludedPath}/'", returnStatus: true) == 0
 
-                    // Enable sparse-checkout and exclude the "docs" directory
-                    sh "git config core.sparseCheckout true"
-                    sh "echo ${excludedPath} >> .git/info/sparse-checkout"
-                    sh "git read-tree -mu HEAD"
+                    // Abort the build if changes occurred in the "docs" directory
+                    if (changesInDocs) {
+                        currentBuild.result = 'ABORTED'
+                        error("Build aborted due to changes in the 'docs' directory.")
+                    }
                 }
             }
         }
