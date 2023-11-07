@@ -1,23 +1,8 @@
 pipeline {
     agent any
 
-    stages {
-        stage("Checkout") {
-            steps {
-                echo "Hello"
-                checkout scm
-            }
-        }
 
-        stage("changes in the folder") {
-            steps {
-                sh """
-                echo "kumar"
-                """
-            }
-        }
-
-  stage("Check for Changes") {
+    stage("Check for Changes") {
             steps {
                 script {
                     // Define the excluded directory "docs"
@@ -34,5 +19,23 @@ pipeline {
                 }
             }
         }
+
+    stages {
+        stage("Checkout") {
+            steps {
+                echo "Hello"
+                checkout scm
+            }
+        }
+
+        stage("changes in the folder") {
+            steps {
+                sh """
+                echo "kumar"
+                """
+            }
+        }
+
+  
     }
 }
