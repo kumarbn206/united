@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-       stage('Checkout') {
+       stage('docs checkout') {
             steps {
                 script {
                     // Define the excluded directory "docs"
