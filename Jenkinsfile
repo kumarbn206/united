@@ -2,7 +2,11 @@ pipeline {
     agent any
 
 
-    stage("Check for Changes") {
+
+    stages {
+
+        
+        stage("Check for Changes") {
             steps {
                 script {
                     // Define the excluded directory "docs"
@@ -20,7 +24,7 @@ pipeline {
             }
         }
 
-    stages {
+
         stage("Checkout") {
             steps {
                 echo "Hello"
