@@ -1,9 +1,11 @@
 pipeline {
     agent any
+
     stages {
         stage("Checkout") {
             steps {
-           echo "Hello"
+                echo "Hello"
+                checkout scm
             }
         }
 
@@ -15,14 +17,11 @@ pipeline {
             }
         }
 
-       stage('docs checkout') {
+        stage('docs checkout') {
             steps {
                 script {
                     // Define the excluded directory "docs"
                     def excludedPath = 'docs'
-
-                    // Perform the default Git checkout
-                    
 
                     // Enable sparse-checkout and exclude the "docs" directory
                     sh "git config core.sparseCheckout true"
@@ -31,7 +30,5 @@ pipeline {
                 }
             }
         }
-
-
     }
 }
