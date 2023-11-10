@@ -13,7 +13,7 @@ pipeline {
                echo "Executing the first stage."
            }
        }
-       stage("Second Stage") {
+       stage("second Stage") {
            when {
                expression {
                    def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
@@ -22,10 +22,9 @@ pipeline {
                }
            }
            steps {
-               echo "Executing the first stage."
+               echo "Executing the second stage."
            }
-           }
-
+       }
 
    }
 
