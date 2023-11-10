@@ -1,18 +1,37 @@
-def excludedPath = 'docs'
-def changesInDocs = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^${excludedPath}/'", returnStatus: true) == 0
-if (changesInDocs) {
-   echo "Changes detected in 'docs'. Skipping subsequent stages."
-} else {
+
    pipeline {
        agent any
        stages {
            stage("First Stage") {
-               steps {
+
+             when {
+       // Check for changes before executing the stage
+       expression {
+           def excludedPath = 'docs'
+           // Check if any changes occurred in the excluded directory
+           def changesInDocs = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^${excludedPath}/'", returnStatus: true) == 0
+           // Skip the stage if changes occurred in the "docs" directory
+           return !changesInDocs
+       }
+   }
+           steps {
                    // Your steps for the first stage
                    echo "Executing the first stage."
                }
            }
            stage("Second Stage") {
+               when {
+       // Check for changes before executing the stage
+       expression {
+           def excludedPath = 'docs'
+           // Check if any changes occurred in the excluded directory
+           def changesInDocs = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^${excludedPath}/'", returnStatus: true) == 0
+           // Skip the stage if changes occurred in the "docs" directory
+           return !changesInDocs
+       }
+   }
+
+
                steps {
                    // Your steps for the second stage
                    echo "Executing the second stage."
@@ -21,4 +40,3 @@ if (changesInDocs) {
            // Add more stages as needed
        }
    }
-}
