@@ -24,7 +24,6 @@ pipeline {
             }
         }
 
-
         stage("Checkout") {
             steps {
                 echo "Hello"
