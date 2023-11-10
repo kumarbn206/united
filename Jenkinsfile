@@ -18,7 +18,7 @@ pipeline {
                expression {
                    def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
                    def allChanges = sh(script: "git diff --name-only HEAD^ HEAD", returnStdout: true).trim()
-                   return !docsChanges || (docsChanges && allChanges)
+                   return !docsChanges || (docsChanges && !allChanges)
                }
            }
            steps {
