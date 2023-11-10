@@ -3,24 +3,30 @@ pipeline {
    stages {
        stage("First Stage") {
            when {
-               expression {
-                   def allChanges = sh(script: "git diff --name-only HEAD^ HEAD", returnStdout: true).trim()
-                   def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
-                   return docsChanges && allChanges.split('\n').size() == 1
-               }
-           }
+                  // Check for changes before executing the stage
+                      expression {
+                      def excludedPath = 'docs'
+                     // Check if any changes occurred in the excluded directory
+                      def changesInDocs = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^${excludedPath}/'", returnStatus: true) == 0
+                     // Skip the stage if changes occurred in the "docs" directory
+                      return !changesInDocs
+                               }
+                }
            steps {
                echo "Executing the first stage."
            }
        }
        stage("Second Stage") {
            when {
-               expression {
-                   def allChanges = sh(script: "git diff --name-only HEAD^ HEAD", returnStdout: true).trim()
-                   def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
-                   return docsChanges && allChanges.split('\n').size() == 1
-               }
-           }
+                  // Check for changes before executing the stage
+                      expression {
+                      def excludedPath = 'docs'
+                     // Check if any changes occurred in the excluded directory
+                      def changesInDocs = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^${excludedPath}/'", returnStatus: true) == 0
+                     // Skip the stage if changes occurred in the "docs" directory
+                      return !changesInDocs
+                               }
+                }
            steps {
                echo "Executing the second stage."
            }
