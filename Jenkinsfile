@@ -12,9 +12,9 @@ pipeline {
 
                     def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
 
-                    def allChanges = sh(script: "git diff --name-only HEAD^ HEAD", returnStatus: true) == 0
+                    def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
 
-                    return !docsChanges || (docsChanges && allChanges)
+                    return !(docsChanges && !otherChanges)
 
                 }
 
@@ -36,9 +36,9 @@ pipeline {
 
                     def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
 
-                    def allChanges = sh(script: "git diff --name-only HEAD^ HEAD", returnStatus: true) == 0
+                    def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
 
-                    return !docsChanges || (docsChanges && allChanges)
+                    return !(docsChanges && !otherChanges)
 
                 }
 
