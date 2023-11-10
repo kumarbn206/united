@@ -17,7 +17,7 @@ pipeline {
        }
    }
    steps {
-       // Your steps here if no changes are detected in "docs"
+       sh "pwd"
    }
 }
 
