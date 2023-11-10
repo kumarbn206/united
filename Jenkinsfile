@@ -21,6 +21,7 @@ pipeline {
                    return !(docsChanges || allChanges)
                }
            }
+           
            steps {
                echo "Executing the second stage."
            }
