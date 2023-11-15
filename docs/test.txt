@@ -1,6 +1,1 @@
-hi
-hello 
-new 
-new
-mynie
-here
+Hello
