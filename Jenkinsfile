@@ -4,7 +4,7 @@ pipeline {
        stage('Check Changes') {
            steps {
                script {
-                   def changes = script: 'git diff --name-only ${env.BRANCH_NAME}^ ${env.BRANCH_NAME}', returnStatus: true
+                   def changes = sh(script: 'git diff --name-only ${env.BRANCH_NAME}^ ${env.BRANCH_NAME}', returnStatus: true).trim()
                    if (changes.contains('docs/')) {
                        echo 'Documentation changes detected. Skipping the job.'
                        currentBuild.result = 'SUCCESS'  // Set the result to SUCCESS or any other appropriate status
