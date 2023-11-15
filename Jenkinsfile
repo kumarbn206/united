@@ -9,6 +9,7 @@ pipeline {
                     return !(docsChanges && !otherChanges)
                        currentBuild.result = 'SUCCESS'
                        error('Aborting further stages.')
+                       
                    }
                }
            }
