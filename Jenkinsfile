@@ -4,9 +4,9 @@ pipeline {
        stage('Check Changes') {
            steps {
                script {
-                   def changes = sh(script: 'git diff --name-only ${env.BRANCH_NAME}^ ${env.BRANCH_NAME}', returnStdout: true).trim()
-                   if (changes.contains('docs/')) {
-                       echo 'Documentation changes detected. Skipping the job.'
+                   def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
+                    def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
+                    return !(docsChanges && !otherChanges)
                        currentBuild.result = 'SUCCESS'
                        error('Aborting further stages.')
                    }
