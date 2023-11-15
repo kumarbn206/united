@@ -1,57 +1,22 @@
 pipeline {
-
-    agent any
-
-    stages {
-
-        stage("First Stage") {
-
-            // when {
-
-            //     expression {
-
-            //         def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
-
-            //         def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
-
-            //         return !(docsChanges && !otherChanges)
-
-            //     }
-
-            // }
-
-            steps {
-
-                echo "Executing the first stage."
-
-            }
-
-        }
-
-        stage("Second Stage") {
-
-            // when {
-
-            //     expression {
-
-            //         def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
-
-            //         def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
-
-            //         return !(docsChanges && !otherChanges)
-
-            //     }
-
-            // }
-
-            steps {
-
-                echo "Executing the second stage."
-
-            }
-
-        }
-
-    }
-
+   agent any
+   stages {
+       stage('Check Changes') {
+           steps {
+               script {
+                   def changes = script: 'git diff --name-only ${env.BRANCH_NAME}^ ${env.BRANCH_NAME}', returnStatus: true
+                   if (changes.contains('docs/')) {
+                       echo 'Documentation changes detected. Skipping the job.'
+                       currentBuild.result = 'SUCCESS'  // Set the result to SUCCESS or any other appropriate status
+                       return
+                   }
+               }
+           }
+       }
+       stage('Your Other Stages') {
+           steps {
+               sh "pwd"
+           }
+       }
+   }
 }
