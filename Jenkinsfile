@@ -1,9 +1,13 @@
 pipeline {
     agent any
 
-    def isDocsChange = {
+
+    script{
+     def isDocsChange = {
         return !(sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0 && !(sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0))
     }
+    }
+    
 
     stages {
         stage("First Stage") {
