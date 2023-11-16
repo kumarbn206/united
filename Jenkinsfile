@@ -6,19 +6,8 @@ pipeline {
 
         stage("First Stage") {
 
-            // when {
+       when { expression { return !(sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0 && !(sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0)) } }
 
-            //     expression {
-
-            //         def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
-
-            //         def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
-
-            //         return !(docsChanges && !otherChanges)
-
-            //     }
-
-            // }
 
             steps {
 
@@ -30,19 +19,8 @@ pipeline {
 
         stage("Second Stage") {
 
-            // when {
+         when { expression { return !(sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0 && !(sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0)) } }
 
-            //     expression {
-
-            //         def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
-
-            //         def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
-
-            //         return !(docsChanges && !otherChanges)
-
-            //     }
-
-            // }
 
             steps {
 
