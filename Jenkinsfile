@@ -1,4 +1,3 @@
-[5:44 PM] Kumar B N
 pipeline {
 
     agent any
