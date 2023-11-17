@@ -1,23 +1,21 @@
 pipeline {
    agent any
    stages {
-       stage('Check Changes') {
+       stage('Replace Text in XML') {
            steps {
                script {
-                   def docsChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -E '^docs/'", returnStatus: true) == 0
-                    def otherChanges = sh(script: "git diff --name-only HEAD^ HEAD | grep -Ev '^docs/'", returnStatus: true) == 0
-                    return !(docsChanges && !otherChanges)
-                       currentBuild.result = 'SUCCESS'
-                       error('Aborting further stages.')
-                       
-                   }
+                   def jenkinsJobName = env.JOB_NAME.replace('/', '_') // Replace '/' with '_' for job name
+                   def xmlFilePath = 'default.xml'
+                   // Read the existing XML content
+                   def xmlContent = readFile(xmlFilePath)
+                   // Replace the desired text
+                   def updatedXmlContent = xmlContent.replaceAll(
+                       '<project name="tef83xx/boot" path="origin/boot" groups="default">',
+                       '<project name="tef83xx/boot" path="origin/boot" groups="default" revision="' + jenkinsJobName + '">'
+                   )
+                   // Write the updated content back to the file
+                   writeFile file: xmlFilePath, text: updatedXmlContent
                }
-           }
-       }
-       stage('Your Other Stages') {
-           steps {
-               echo 'This stage will only run if there are no documentation changes.'
-               // Your other stage steps here
            }
        }
    }

@@ -1,0 +1,33 @@
+<manifest>
+    <remote name="origin"
+            fetch="ssh://git@bitbucket.sw.nxp.com/"/>
+
+    <default revision="develop"
+             remote="origin"
+             sync-j="8" />
+
+    <!-- RFE -->
+    <project name="strx/rfe" path="boot" groups="default,rfe" revision="refs/tags/SAF85xx_RFE_SW_EAR_0.8.19_D230929"/>
+
+    <project name="tef83xx/boot" path="origin/boot" groups="default">
+        <linkfile src="apps/rfeBootFw" dest="boot/rfem7/apps/rfeBootFw"/>
+        <linkfile src="code/units/rfeSwS50" dest="boot/rfem7/code/units/rfeSwS50"/>
+        <linkfile src="code/units/rfeSwSec" dest="boot/rfem7/code/units/rfeSwSec"/>
+        <linkfile src="code/units/inc" dest="boot/rfem7/code/units/inc"/>
+        <copyfile src="code/units/rfeHwCrc/inc/rfeHwCrc.h" dest="boot/rfem7/code/units//rfeHwCrc/inc/rfeHwCrc.h"/>
+        <copyfile src="code/units/rfeHwCrc/src/rfeHwCrc.c" dest="boot/rfem7/code/units//rfeHwCrc/src/rfeHwCrc.c"/>
+        <copyfile src="code/units/rfeCmdServer/inc/rfeCmd_interface.h" dest="boot/rfem7/code/units//rfeCmdServer/inc/rfeCmd_interface.h"/>
+        <copyfile src="code/units/rfeCmdServerDisp/inc/rfeCmdServerDisp.h" dest="boot/rfem7/code/units/rfeCmdServerDisp/inc/rfeCmdServerDisp.h"/>
+        <copyfile src="code/units/rfeCmdServerDisp/inc/boot_S50utils.h" dest="boot/rfem7/code/units/rfeCmdServerDisp/inc/boot_S50utils.h"/>
+        <copyfile src="code/units/rfeCmdServerDisp/Chafi/Chafi_Stub.h" dest="boot/rfem7/code/units/rfeCmdServerDisp/inc/Chafi_Stub.h"/>
+        <copyfile src="code/units/rfeCmdServerDisp/imagechunk/inc/boot_ImageChunk.h" dest="boot/rfem7/code/units/rfeCmdServerDisp/inc/boot_ImageChunk.h"/>
+        <copyfile src="code/units/rfeCmdServerDisp/imageheader/inc/boot_ImageHeader.h" dest="boot/rfem7/code/units/rfeCmdServerDisp/inc/boot_ImageHeader.h"/>
+        <copyfile src="code/units/rfeCmdServerDisp/src/rfeCmdServerDisp.c" dest="boot/rfem7/code/units/rfeCmdServerDisp/src/rfeCmdServerDisp.c"/>
+        <copyfile src="code/units/rfeCmdServerDisp/src/boot_S50utils.c" dest="boot/rfem7/code/units/rfeCmdServerDisp/src/boot_S50utils.c"/>
+        <copyfile src="code/units/rfeCmdServerDisp/imagechunk/src/boot_ImageChunk.c" dest="boot/rfem7/code/units/rfeCmdServerDisp/src/boot_ImageChunk.c"/>
+        <copyfile src="code/units/rfeCmdServerDisp/imageheader/src/boot_ImageHeader.c" dest="boot/rfem7/code/units/rfeCmdServerDisp/src/boot_ImageHeader.c"/>
+        <copyfile src="code/units/rfeCmdServerDisp/unit.cmake" dest="boot/rfem7/code/units/rfeCmdServerDisp/unit.cmake"/>
+        <copyfile src="CompilerOpt.cmake" dest="boot/rfem7/tools/cmake/CompilerOpt.cmake"/>
+    </project>
+
+</manifest>
