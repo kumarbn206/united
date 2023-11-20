@@ -12,8 +12,8 @@ pipeline {
                                 def xmlContent = readFile(xmlFilePath)
                                 // Replace text
                               //   def updatedXmlContent = xmlContent.replaceAll('<project name="tef83xx/boot" path="origin/boot" groups="default">','<project name="tef83xx/boot" path="origin/boot" groups="default" revision="' + branchName + '">' )
-                              //   def updatedXmlContent = xmlContent.replaceAll('<project name="tef83xx/boot"', '<project name="tef83xx/boot" revision="' + branchName + '"')
-                                   def updatedXmlContent = xmlContent.replaceAll('<project name="tef83xx/boot"', '<project name="tef83xx/boot"') + ' revision="' + branchName + '"'
+                              def updatedXmlContent = xmlContent.replaceAll('<project name="tef83xx/boot"', '<project name="tef83xx/boot" revision="' + branchName + '"')
+                                   
                                // Write the updated content back to the file
                                writeFile file: xmlFilePath, text: updatedXmlContent
                                  }
