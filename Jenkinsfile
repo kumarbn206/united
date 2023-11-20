@@ -13,9 +13,9 @@ def response = httpRequest(
    httpMode: 'GET',
    contentType: 'APPLICATION_JSON'
 )
-// Parse the JSON response to extract the build number
-def buildNumber = readJSON text: response.content
-println "Latest build number for job '${jobName}': ${buildNumber.number}"
+// // Parse the JSON response to extract the build number
+// def buildNumber = readJSON text: response.content
+// println "Latest build number for job '${jobName}': ${buildNumber.number}"
 // You can now use 'buildNumber.number' in your Jenkins pipeline
                 }
             }
