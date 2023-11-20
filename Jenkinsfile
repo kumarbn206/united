@@ -5,15 +5,21 @@ pipeline {
         stage('get build number'){
             steps{
                 script{
-                    def jobName = 'united/main'  // Replace 'YourJobName' with the actual name of the Jenkins job
-                   // Trigger the other Jenkins job and wait for its completion
-                    def triggeredJob = build(jobName)
-                    // Retrieve the build number of the triggered job
-                     def buildNumber = triggeredJob.number
-                     println "Latest build number for job '${jobName}': ${buildNumber}"
-                 // Now you can use 'buildNumber' in your Jenkins pipeline
+                   def jobName = 'united/main'  // Replace 'YourJobName' with the actual name of the Jenkins job
+def jenkins = Jenkins.getInstance()
+def job = jenkins.getItemByFullName(jobName, Job.class)
+def lastBuild = job.getLastBuild()
+if (lastBuild) {
+   def buildNumber = lastBuild.number
+   println "Latest build number for job '${jobName}': ${buildNumber}"
+} else {
+   println "No builds found for job '${jobName}'"
+}
                 }
             }
         }
     }
 }
+
+
+
