@@ -17,6 +17,7 @@ pipeline {
                                // Write the updated content back to the file
                                writeFile file: xmlFilePath, text: updatedXmlContent
                                  }
+                                 sh "cat default.xml"
 
                                        }
                                    }
