@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+env {
+    UPSTREAM_BUILD_NUMBER =""
+}
     stages {
       
       stage("Upstream job")
