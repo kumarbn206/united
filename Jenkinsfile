@@ -17,7 +17,7 @@ pipeline {
                 // Your upstream job steps here
 
                 // Trigger downstream job
-                build job: 'Downstream', wait: false
+                build job: 'downstream', wait: false
             }
         }
     }
