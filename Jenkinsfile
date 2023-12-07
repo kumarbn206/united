@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage("Check Docs Changes") {
+        stage("Testing") {
             steps {
               sh"""
                 echo "hello"
@@ -10,17 +10,14 @@ pipeline {
             }
         }
 
-        stage("First Stage") {
-            when { expression { env.IS_DOCS_CHANGE == 'true' } }
-            steps {
-                echo "Executing the first stage."
-            }
-        }
+    
 
-        stage("Second Stage") {
-            when { expression { env.IS_DOCS_CHANGE == 'true' } }
+        stage('Upstream') {
             steps {
-                echo "Executing the second stage."
+                // Your upstream job steps here
+
+                // Trigger downstream job
+                build job: 'Downstream', wait: false
             }
         }
     }
