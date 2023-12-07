@@ -13,9 +13,9 @@ pipeline {
         stage('Upstream') {
             steps {
                 script {
-                    // Trigger downstream job with build number parameter
-                    def downstreamBuild = build job: 'downstream', parameters: [string(name: 'UPSTREAM_BUILD_NUMBER', value: currentBuild.number)], wait: false
-                    echo "Triggered Downstream Job: ${downstreamBuild.url}"
+                    // Convert build number to string and trigger downstream job with build number parameter
+                    def downstreamBuild = build job: 'downstream', parameters: [string(name: 'UPSTREAM_BUILD_NUMBER', value: currentBuild.number.toString())], wait: false
+                   
                 }
             }
         }
