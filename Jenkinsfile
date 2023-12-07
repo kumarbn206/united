@@ -7,7 +7,9 @@ pipeline {
       {
         steps{
             sh"""
-            echo "hello"
+            echo "hello"                    
+            def upstreamBuildNumber = env.UPSTREAM_BUILD_NUMBER
+            echo "Upstream Build Number in Downstream Job: ${upstreamBuildNumber}"
             """
         }
       }
